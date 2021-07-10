@@ -8,12 +8,12 @@
       <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
       <el-dropdown trigger="click">
         <span class="el-dropdown-link">
-          杨三炮<i class="el-icon-arrow-down el-icon--right"></i>
+          {{ userName }}<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item>个人中心</el-dropdown-item>
-            <el-dropdown-item divided>退出登录</el-dropdown-item>
+            <el-dropdown-item divided @click="logout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -24,13 +24,23 @@
 <script>
 import { reactive, toRefs, computed } from 'vue';
 import { useStore } from 'vuex';
+import { removeToken } from '@/utils/auth';
+import { useRouter } from 'vue-router';
 
 export default {
   setup() {
+    const store = useStore();
+    const router = useRouter();
+    // 登录用户名
+    const userName = computed(() => store.state.user.userName);
+    // 退出登录
+    const logout = () => {
+      removeToken();
+      router.push({ path: '/login' });
+    };
     const state = reactive({
       count: 0,
     });
-    const store = useStore();
     const handleCollapse = () => {
       store.commit('handllCollapse', !store.state.collapse);
     };
@@ -39,6 +49,8 @@ export default {
       ...toRefs(state),
       handleCollapse,
       collapseClass,
+      logout,
+      userName,
     };
   },
 };

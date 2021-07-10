@@ -16,5 +16,9 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-var-requires': 'off',
+    'no-else-return': 'off',
+    'no-lonely-if': 'off',
+    'consistent-return': 'off',
+    'import/prefer-default-export': 'off',
   },
 };

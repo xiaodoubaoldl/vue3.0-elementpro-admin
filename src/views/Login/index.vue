@@ -19,7 +19,7 @@
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button style="width:100%" type="primary" @click="login">登录</el-button>
+          <el-button style="width:100%" type="primary" @click="login()">登录</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -28,12 +28,14 @@
 
 <script>
 import { reactive, toRefs, ref } from 'vue';
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router';
+import { setToken } from '@/utils/auth';
+import { ElMessage } from 'element-plus';
+import { useStore } from 'vuex';
 
 export default {
   setup() {
     const validatePass = (rule, value, callback) => {
-      console.log(rule);
       if (value === '') {
         callback(new Error('请输入密码'));
       } else {
@@ -50,8 +52,8 @@ export default {
     const state = reactive({
       count: 0,
       ruleForm: {
-        name: '',
-        pass: '',
+        name: 'admin',
+        pass: 'admin',
       },
       rules: {
         pass: [
@@ -62,14 +64,32 @@ export default {
         ],
       },
     });
+    const router = useRouter();
+    const route = useRoute();
+    const store = useStore();
     // 登录
     const loginRef = ref(null);
+    const roles = ['admin', 'editor'];
     const login = () => {
       loginRef.value.validate((valid) => {
         if (valid) {
-          console.log(valid)
-          // alert('submit!');
-          
+          if (roles.includes(state.ruleForm.name)) {
+            setToken(state.ruleForm.name);
+            ElMessage.success({
+              message: '登录成功',
+              type: 'success',
+            });
+            store.commit('setUserName', state.ruleForm.name);
+            router.push({
+              path: route.query.redirect || '/',
+            });
+          } else {
+            ElMessage.error({
+              message: '用户名必须是admin/editor',
+              type: 'error',
+            });
+            return false;
+          }
         } else {
           console.log('error submit!!');
           return false;
@@ -79,6 +99,7 @@ export default {
     return {
       ...toRefs(state),
       login,
+      loginRef,
     };
   },
 };
