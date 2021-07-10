@@ -1,5 +1,5 @@
 interface State {
-  userName: string
+  [propName: string]: any;
 }
 export const user = {
   state: () => ({
