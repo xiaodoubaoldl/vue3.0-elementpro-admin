@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar">
     <el-menu
-      default-active="2"
+      :default-active="route.path"
       class="sidebar-el-menu"
       background-color="#324157"
       text-color="#fff"
@@ -9,12 +9,13 @@
       :collapse="isCollapse"
       router>
       <!-- 权限导航 -->
-      <sidebar-item v-for="item in permissionRoutes" :key="item.index" :item="item"/>
+      <sidebar-item v-for="item in permissionRoutes" :key="item.path" :item="item"/>
     </el-menu>
   </div>
 </template>
 
 <script>
+import { useRoute } from 'vue-router';
 import { reactive, toRefs, computed } from 'vue';
 import { useStore } from 'vuex';
 import SidebarItem from './SidebarItem.vue';
@@ -24,14 +25,18 @@ export default {
     SidebarItem,
   },
   setup() {
+    const route = useRoute();
     const state = reactive({
       count: 0,
     });
     const store = useStore();
     const isCollapse = computed(() => store.state.collapse);
+    const permissionRoutes = computed(() => store.state.permissionRoutes.routes);
     return {
       ...toRefs(state),
       isCollapse,
+      permissionRoutes,
+      route,
     };
   },
 };

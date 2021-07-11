@@ -80,6 +80,7 @@ export default {
               type: 'success',
             });
             store.commit('setUserName', state.ruleForm.name);
+            store.commit('setRoles', [state.ruleForm.name]);
             router.push({
               path: route.query.redirect || '/',
             });

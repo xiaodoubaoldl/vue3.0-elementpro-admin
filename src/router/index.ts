@@ -12,7 +12,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
         path: '/dashboard',
         component: () => import('@/views/Dashboard.vue'),
         name: 'Dashboard',
-        meta: { title: 'Dashboard' },
+        meta: { title: 'Dashboard', icon: 'el-icon-s-home' },
       },
     ],
   },
@@ -20,6 +20,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
     path: '/login',
     name: 'Login',
     component: () => import('@/views/Login/index.vue'),
+    meta: { hidden: true },
   },
 ];
 export const asyncRoutes: Array<RouteRecordRaw> = [

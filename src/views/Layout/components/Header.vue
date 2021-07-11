@@ -5,7 +5,7 @@
       管理系统
     </div>
     <div class="header-right">
-      <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+      <el-avatar src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80"></el-avatar>
       <el-dropdown trigger="click">
         <span class="el-dropdown-link">
           {{ userName }}<i class="el-icon-arrow-down el-icon--right"></i>

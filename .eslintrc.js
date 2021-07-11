@@ -20,5 +20,8 @@ module.exports = {
     'no-lonely-if': 'off',
     'consistent-return': 'off',
     'import/prefer-default-export': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    'no-restricted-syntax': 'off',
+    '@typescript-eslint/no-empty-function': 'off',
   },
 };

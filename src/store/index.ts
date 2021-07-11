@@ -1,5 +1,6 @@
 import { createStore } from 'vuex';
 import { user } from './module/user';
+import { permissionRoutes } from './module/permission';
 
 export default createStore({
   state: {
@@ -14,5 +15,6 @@ export default createStore({
   },
   modules: {
     user,
+    permissionRoutes,
   },
 });
