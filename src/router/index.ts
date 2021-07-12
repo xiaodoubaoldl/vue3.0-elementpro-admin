@@ -22,6 +22,12 @@ export const constantRoutes: Array<RouteRecordRaw> = [
     component: () => import('@/views/Login/index.vue'),
     meta: { hidden: true },
   },
+  {
+    path: '/404',
+    name: '404',
+    component: () => import('@/views/error-page/404.vue'),
+    meta: { hidden: true },
+  },
 ];
 export const asyncRoutes: Array<RouteRecordRaw> = [
   {
@@ -43,6 +49,8 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
       },
     ],
   },
+  // 404 page must be placed at the end !!!
+  { path: '/:pathMatch(.*)*', redirect: '/404', meta: { hidden: true, title: '404' } },
 ];
 
 const router = createRouter({

@@ -42,7 +42,7 @@ router.beforeEach(async (to, from, next) => {
     console.log(to);
     // 白名单
     if (pageWhiteList.includes(to.path)) {
-      console.log('white')
+      console.log('white');
       next();
       NProgress.done();
     } else {
