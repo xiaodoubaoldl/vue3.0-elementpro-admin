@@ -1,5 +1,6 @@
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
+import { RouteRecordRaw } from 'vue-router';
 import store from './store';
 import router from './router';
 import { getToken } from './utils/auth';
@@ -30,7 +31,9 @@ router.beforeEach(async (to, from, next) => {
 
       const accessRoutes = await store.dispatch('generateRoutes', (store.state as any).user.roles);
       // dynamically add accessible routes
-      router.addRoute(accessRoutes[0]);
+      accessRoutes.forEach((element: RouteRecordRaw) => {
+        router.addRoute(element);
+      });
 
       // hack method to ensure that addRoutes is complete
       // set the replace: true, so the navigation will not leave a history record
