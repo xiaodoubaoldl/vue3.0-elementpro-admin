@@ -25,16 +25,21 @@ export const constantRoutes: Array<RouteRecordRaw> = [
 ];
 export const asyncRoutes: Array<RouteRecordRaw> = [
   {
-    path: '/chart',
-    name: 'Chart',
+    path: '/permission',
+    name: 'Permission',
     component: Layout,
-    redirect: '/chart/line',
+    redirect: '/permission/line',
+    meta: {
+      title: 'Permission',
+      icon: 'lock',
+      roles: ['admin', 'editor'],
+    },
     children: [
       {
         path: 'line',
         component: () => import('@/views/Chart/ChartLine.vue'),
         name: 'LineChart',
-        meta: { title: 'LineChart' },
+        meta: { title: 'LineChart', roles: ['admin'] },
       },
     ],
   },
@@ -44,5 +49,13 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes: constantRoutes,
 });
+
+// export function resetRouter() {
+//   const newRouter = createRouter({
+//     history: createWebHistory(process.env.BASE_URL),
+//     routes: constantRoutes,
+//   });
+//   // router.matcher = newRouter.matcher // reset router
+// }
 
 export default router;

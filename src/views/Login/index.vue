@@ -29,7 +29,6 @@
 <script>
 import { reactive, toRefs, ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-import { setToken } from '@/utils/auth';
 import { ElMessage } from 'element-plus';
 import { useStore } from 'vuex';
 
@@ -74,15 +73,15 @@ export default {
       loginRef.value.validate((valid) => {
         if (valid) {
           if (roles.includes(state.ruleForm.name)) {
-            setToken(state.ruleForm.name);
-            ElMessage.success({
-              message: '登录成功',
-              type: 'success',
-            });
-            store.commit('setUserName', state.ruleForm.name);
-            store.commit('setRoles', [state.ruleForm.name]);
-            router.push({
-              path: route.query.redirect || '/',
+            // 调接口去登录
+            store.dispatch('login', state.ruleForm).then(() => {
+              ElMessage.success({
+                message: '登录成功',
+                type: 'success',
+              });
+              router.push({
+                path: route.query.redirect || '/',
+              });
             });
           } else {
             ElMessage.error({

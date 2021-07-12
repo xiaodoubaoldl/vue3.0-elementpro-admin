@@ -1,8 +1,39 @@
 /* eslint-disable */
 import { constantRoutes, asyncRoutes } from '@/router/index';
-import { RouteRecordRaw } from 'vue-router';
 import { ActionContext } from 'vuex';
+/**
+ * Use meta.role to determine if the current user has permission
+ * @param roles
+ * @param route
+ */
+ const hasPermission = (roles: any[], route: { meta: { roles: string | any[]; }; }) => {
+  if (route.meta && route.meta.roles) {
+    return roles.some(role => route.meta.roles.includes(role))
+  } else {
+    return true
+  }
+}
 
+/**
+ * Filter asynchronous routing tables by recursion
+ * @param routes asyncRoutes
+ * @param roles
+ */
+const filterRoutes = (asyncRoutes: any[], roles: string[]) => {
+  const res: any[] = []
+
+  asyncRoutes.forEach((route: any) => {
+    const tmp = { ...route }
+    if (hasPermission(roles, tmp)) {
+      if (tmp.children) {
+        tmp.children = filterRoutes(tmp.children, roles)
+      }
+      res.push(tmp)
+    }
+  })
+
+  return res
+};
 interface State {
   [propName: string]: any;
 }
@@ -20,13 +51,15 @@ export const permissionRoutes = {
   },
   actions: {
     generateRoutes(context: ActionContext<State, any>, data: Array<string>) {
-      return new Promise((resolve: (arg0: RouteRecordRaw[]) => void) => {
+      return new Promise((resolve) => {
+        let calculateRoutes;
         if (data.includes('admin')) {
-          context.commit('setRoutes', asyncRoutes);
+          calculateRoutes = asyncRoutes;
         } else {
-          context.commit('setRoutes', []);
+          calculateRoutes = filterRoutes(asyncRoutes, data);
         }
-        resolve(asyncRoutes);
+        context.commit('setRoutes', calculateRoutes);
+        resolve(calculateRoutes);
       });
     },
   },

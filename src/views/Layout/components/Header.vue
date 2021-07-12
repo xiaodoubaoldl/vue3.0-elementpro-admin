@@ -24,19 +24,20 @@
 <script>
 import { reactive, toRefs, computed } from 'vue';
 import { useStore } from 'vuex';
-import { removeToken } from '@/utils/auth';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
 export default {
   setup() {
     const store = useStore();
     const router = useRouter();
+    const route = useRoute();
     // 登录用户名
     const userName = computed(() => store.state.user.userName);
     // 退出登录
-    const logout = () => {
-      removeToken();
-      router.push({ path: '/login' });
+    const logout = async () => {
+      await store.dispatch('logout');
+      // router.push({ path: `/login?redirect=${route.path}` }); 参数丢失
+      router.push({ path: '/login', query: { redirect: route.path } });
     };
     const state = reactive({
       count: 0,
