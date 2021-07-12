@@ -9,7 +9,10 @@
       :collapse="isCollapse"
       router>
       <!-- 权限导航 -->
-      <sidebar-item v-for="item in permissionRoutes" :key="item.path" :item="item"/>
+      <sidebar-item v-for="item in permissionRoutes"
+        :key="item.path"
+        :item="item"
+        :base-path="item.path"/>
     </el-menu>
   </div>
 </template>

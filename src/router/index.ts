@@ -9,7 +9,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
     redirect: '/dashboard',
     children: [
       {
-        path: '/dashboard',
+        path: 'dashboard',
         component: () => import('@/views/Dashboard.vue'),
         name: 'Dashboard',
         meta: { title: 'Dashboard', icon: 'el-icon-s-home' },
