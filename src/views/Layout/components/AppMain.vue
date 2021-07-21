@@ -33,7 +33,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.main-app{
-  // height: calc(100vh-60px);
+.main-wrap{
+  height: 100%;
 }
 </style>

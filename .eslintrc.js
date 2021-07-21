@@ -23,5 +23,6 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     'no-restricted-syntax': 'off',
     '@typescript-eslint/no-empty-function': 'off',
+    'max-len': ['error', { code: 600 }],
   },
 };
