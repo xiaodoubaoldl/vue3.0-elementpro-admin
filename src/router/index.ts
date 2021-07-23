@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import Layout from '@/views/Layout/index.vue';
 
 export const constantRoutes: Array<RouteRecordRaw> = [
@@ -54,13 +54,13 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHashHistory(process.env.BASE_URL),
   routes: constantRoutes,
 });
 
 // export function resetRouter() {
 //   const newRouter = createRouter({
-//     history: createWebHistory(process.env.BASE_URL),
+//     history: createWebHashHistory(process.env.BASE_URL),
 //     routes: constantRoutes,
 //   });
 //   // router.matcher = newRouter.matcher // reset router
