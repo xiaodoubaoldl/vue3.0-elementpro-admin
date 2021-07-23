@@ -16,6 +16,7 @@ router.beforeEach(async (to, from, next) => {
       router.push({ path: '/' });
       NProgress.done();
     } else {
+      console.log(to);
       // 处理权限
       const hasRoles = (store.state as any).user.roles.length > 0;
       console.log(hasRoles);
@@ -26,7 +27,7 @@ router.beforeEach(async (to, from, next) => {
         const roles = await store.dispatch('getUserInfo');
         // 获取动态权限路由
         const accessRoutes = await store.dispatch('generateRoutes', roles);
-        console.log(accessRoutes);
+        // console.log(accessRoutes);
         // dynamically add accessible routes
         accessRoutes.forEach((element: RouteRecordRaw) => {
           router.addRoute(element);

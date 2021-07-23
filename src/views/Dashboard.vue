@@ -1,11 +1,13 @@
 <template>
   <div class="home-wrap">
     <github-corner class="corner"/>
-    <h1>首页</h1>
+    <el-button @click="set">set</el-button>
+    <el-button @click="get">get</el-button>
   </div>
 </template>
 
 <script>
+import { getToken, setToken } from '@/utils/auth';
 import GithubCorner from '@/components/GithubCorner/index.vue';
 import { reactive, toRefs } from 'vue';
 
@@ -17,8 +19,16 @@ export default {
     const state = reactive({
       count: 0,
     });
+    const set = () => {
+      setToken('test', '123');
+    };
+    const get = () => {
+      console.log(getToken('test'));
+    };
     return {
       ...toRefs(state),
+      set,
+      get,
     };
   },
 };
