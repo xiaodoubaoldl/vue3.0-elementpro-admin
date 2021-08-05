@@ -112,10 +112,11 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url('~@/assets/imgs/login-bg.jpg') no-repeat;
+  // background: url('~@/assets/imgs/login-bg.jpg') no-repeat;
+  background: url('https://gw.alipayobjects.com/mdn/rms_08e378/afts/img/A*WzMpTIP8R6gAAAAAAAAAAABkARQnAQ') no-repeat;
   background-size: cover;
   .login-content{
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(0, 0, 0, 0.8);
     width: 450px;
     height: 310px;
     .title{
@@ -123,6 +124,7 @@ export default {
       line-height: 60px;
       text-align: center;
       border-bottom: 1px solid #ccc;
+      color: #fff;
     }
     .el-form{
       padding: 20px;
