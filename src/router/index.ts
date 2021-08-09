@@ -12,7 +12,19 @@ export const constantRoutes: Array<RouteRecordRaw> = [
         path: 'dashboard',
         component: () => import('@/views/Dashboard.vue'),
         name: 'Dashboard',
-        meta: { title: 'Dashboard', icon: 'el-icon-s-home' },
+        meta: { title: '首页', icon: 'el-icon-s-home' },
+      },
+    ],
+  },
+  {
+    path: '/icon',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/icons/index.vue'),
+        name: 'Icons',
+        meta: { title: '图标', icon: 'el-icon-magic-stick', noCache: true },
       },
     ],
   },
@@ -45,7 +57,39 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         path: 'line',
         component: () => import('@/views/Chart/ChartLine.vue'),
         name: 'LineChart',
-        meta: { title: 'LineChart', roles: ['admin'] },
+        meta: { title: '折线图', roles: ['admin'] },
+      },
+    ],
+  },
+  {
+    path: '/example',
+    component: Layout,
+    redirect: '/example/list',
+    name: 'Example',
+    meta: {
+      title: 'Example',
+      icon: 'el-icon-s-help',
+    },
+    children: [
+      {
+        path: 'create',
+        component: () => import('@/views/example/create.vue'),
+        name: 'CreateArticle',
+        meta: { title: 'Create Article', icon: 'edit' },
+      },
+      {
+        path: 'edit/:id(\\d+)',
+        component: () => import('@/views/example/edit.vue'),
+        name: 'EditArticle',
+        meta: {
+          title: 'Edit Article', noCache: true, activeMenu: '/example/list', hidden: true,
+        },
+      },
+      {
+        path: 'list',
+        component: () => import('@/views/example/list.vue'),
+        name: 'ArticleList',
+        meta: { title: 'Article List', icon: 'list' },
       },
     ],
   },

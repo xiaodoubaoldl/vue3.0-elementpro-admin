@@ -10,6 +10,18 @@
         </el-menu-item>
       </template>
       <!-- 多个child -->
+    <template v-if="item.children.length>1">
+      <el-submenu :index="item.path">
+        <template #title>
+          <i class="el-icon-location"></i>
+          <span>{{ item.meta.title }}</span>
+        </template>
+        <el-menu-item :index="`${item.path}/${innerItem.path}`" v-for="innerItem in item.children" :key="innerItem.path">
+          <!-- <i class="el-icon-menu"></i> -->
+          <template #title>{{ innerItem.meta.title }}</template>
+        </el-menu-item>
+      </el-submenu>
+    </template>
       <!-- <el-submenu v-else ref="subMenu" :index="resolvePath(item.path)" popper-append-to-body>
         <template slot="title">
           <item v-if="item.meta" :icon="item.meta && item.meta.icon" :title="item.meta.title" />
@@ -62,5 +74,17 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
+.el-menu--collapse {
+      .el-submenu {
+        &>.el-submenu__title {
+          &>span {
+            height: 0;
+            width: 0;
+            overflow: hidden;
+            visibility: hidden;
+            display: inline-block;
+          }
+        }
+      }
+    }
 </style>
